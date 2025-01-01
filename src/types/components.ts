@@ -5,3 +5,11 @@ export interface Btn {
   size?: 'default' | 'large'
   icon?: Component
 }
+
+export interface Notification {
+  title: string
+  type: 'success' | 'error' | 'warning'
+  message?: string
+  action?: () => void
+  actionText?: string
+}
