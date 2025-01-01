@@ -5,12 +5,14 @@ import { ROUTES } from '@/utils/constants'
 
 import IconsLogo from '@/components/icons/IconsLogo.vue'
 import IconsLogout from '@/components/icons/IconsLogout.vue'
+import IconsBell from '@/components/icons/IconsBell.vue';
+import IconsProfile from '@/components/icons/IconsProfile.vue';
 
 const route = useRoute()
 </script>
 <template>
-  <section class="flex h-screen">
-    <nav class="bg-black flex flex-col justify-between w-[296px] py-[55px] px-[41px]">
+  <section class="h-screen flex text-black overflow-hidden">
+    <nav class="bg-black flex flex-col justify-between w-[296px] py-[55px] px-[40px]">
       <div class="flex flex-col gap-[75px]">
         <router-link to="/" title="Go back to Dashboard" class="flex items-center justify-center">
           <IconsLogo />
@@ -38,8 +40,19 @@ const route = useRoute()
         </a>
       </div>
     </nav>
-    <section class="w-full">
-      <RouterView />
+    <section class="relative w-full h-screen overflow-auto">
+      <header class="sticky top-0 border-b py-[13px] px-[30px] flex gap-[24px] items-center justify-end bg-white">
+        <IconsBell class="w-[24px] opacity-60 hover:opacity-100 hover:text-primary cursor-pointer" />
+        <div class="cursor-pointer flex gap-3 items-center">
+          <div class="w-[40px] h-[40px] flex items-center justify-center rounded-full bg-[#f5f5f5] opacity-70">
+            <IconsProfile class="w-[24px]" />
+          </div>
+          Company name
+        </div>
+      </header>
+      <section class="pt-[20px] px-[40px] overflow-auto">
+        <RouterView />
+      </section>
     </section>
   </section>
 </template>
