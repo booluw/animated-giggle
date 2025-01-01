@@ -16,11 +16,13 @@ import IconsGivingHand from '@/components/icons/IconsGivingHand.vue'
 import IconsPiggybank from '@/components/icons/IconsPiggybank.vue'
 import IconsTimer from '@/components/icons/IconsTimer.vue'
 import Loader from '@/components/Loader.vue'
+import NewTransactionModal from '@/components/NewTransactionModal.vue'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 const store = useAppStore()
 const loading = ref(false)
+const transactionModal = ref(false)
 
 const summary = computed(() => store._summary)
 
@@ -50,7 +52,7 @@ onMounted(async () => {
   <main v-else class="w-full flex flex-col gap-[20px]">
     <div class="flex items-center justify-between">
       <h1 class="text-[32px] font-bold">Dashboard</h1>
-      <Btn size="default" :icon="IconsAdd"> New Transaction </Btn>
+      <Btn size="default" :icon="IconsAdd" @click="transactionModal = !transactionModal"> New Transaction </Btn>
     </div>
 
     <div class="flex gap-[30px]">
@@ -191,5 +193,7 @@ onMounted(async () => {
         </div>
       </div>
     </div>
+
+    <NewTransactionModal v-if="transactionModal" @close="transactionModal = !transactionModal" />
   </main>
 </template>
