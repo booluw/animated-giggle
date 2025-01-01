@@ -6,6 +6,7 @@ import { useAppStore } from '@/stores/app'
 
 import { fetchSummary } from '@/services/dashboard'
 import { formatMoney, formatNumber, getRandomColor } from '@/utils/functions'
+import { notify } from '@/components/Notification'
 
 import Btn from '@/components/Btn.vue'
 import IconsAdd from '@/components/icons/IconsAdd.vue'
@@ -31,11 +32,19 @@ const getSummary = async function () {
 
   try {
     store.setSummary((await fetchSummary()).data)
+    loading.value = false
   } catch (err: unknown) {
     console.log(err)
+    notify({
+      title: 'An Error occurred',
+      message:
+        store._summary !== undefined
+          ? 'Fetching new data failed.'
+          : 'Please click on Refresh to try again',
+      type: store._summary !== undefined ? 'warning' : 'error',
+      action: getSummary, actionText: 'Refresh'
+    })
   }
-
-  loading.value = false
 }
 
 onMounted(async () => {
@@ -52,7 +61,9 @@ onMounted(async () => {
   <main v-else class="w-full flex flex-col gap-[20px]">
     <div class="flex items-center justify-between">
       <h1 class="text-[32px] font-bold">Dashboard</h1>
-      <Btn size="default" :icon="IconsAdd" @click="transactionModal = !transactionModal"> New Transaction </Btn>
+      <Btn size="default" :icon="IconsAdd" @click="transactionModal = !transactionModal">
+        New Transaction
+      </Btn>
     </div>
 
     <div class="flex gap-[30px]">
@@ -166,7 +177,11 @@ onMounted(async () => {
       <div class="w-[354px] rounded-[8px] border py-[20px] px-[24px]">
         <h3 class="font-[500]">Transaction by product</h3>
         <Doughnut
-          :options="{ responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'bottom' } } }"
+          :options="{
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: { legend: { position: 'bottom' } },
+          }"
           :data="{
             labels: summary?.transaction_type_summary.map((soc) => soc.transaction_type),
             datasets: [

@@ -7,6 +7,7 @@ import Btn from './Btn.vue'
 import IconsPackageCircle from './icons/IconsPackageCircle.vue';
 import IconsShippingCircl from './icons/IconsShippingCircl.vue'
 import IconsToolsCircle from './icons/IconsToolsCircle.vue';
+import { notify } from './Notification';
 
 const emit = defineEmits(['close'])
 const router = useRouter()
@@ -15,7 +16,7 @@ const selected = ref<'procurement' | 'service' | 'commodity'>()
 
 const next = function () {
   if (selected.value === undefined) {
-    console.log("Please select an option");
+    notify({ title: 'Please select a transaction type', type: 'warning' })
     return
   }
 
