@@ -22,7 +22,7 @@ const route = useRoute()
             <router-link
               :to="link.uri"
               class="rounded bg-transparent text-white opacity-50 flex gap-4 py-[10px] px-[24px] hover:opacity-85 transition-all ease-in-out"
-              :class="{ 'bg-primary !opacity-100': route.fullPath === link.uri }"
+              :class="{ '!bg-primary !opacity-100': route.path === link.uri }"
             >
               <component :is="link.icon" class="w-[24px]" />
               {{ link.title }}
@@ -41,7 +41,7 @@ const route = useRoute()
       </div>
     </nav>
     <section class="relative w-full h-screen overflow-auto">
-      <header class="sticky top-0 border-b py-[13px] px-[30px] flex gap-[24px] items-center justify-end bg-white">
+      <header class="sticky top-0 z-[2] border-b py-[13px] px-[30px] flex gap-[24px] items-center justify-end bg-white">
         <IconsBell class="w-[24px] opacity-60 hover:opacity-100 hover:text-primary cursor-pointer" />
         <div class="cursor-pointer flex gap-3 items-center">
           <div class="w-[40px] h-[40px] flex items-center justify-center rounded-full bg-[#f5f5f5] opacity-70">

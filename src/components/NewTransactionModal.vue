@@ -20,7 +20,7 @@ const next = function () {
     return
   }
 
-  router.push({ name: 'transactions', params: { type: selected.value }})
+  router.push({ name: 'transactions', query: { type: selected.value }})
 }
 </script>
 
