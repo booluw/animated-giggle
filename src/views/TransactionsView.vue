@@ -92,11 +92,15 @@ const updateFile = function (attr: unknown, file: File, index?: number) {
     return
   }
 
-  transaction.value[attr!][index] = file
+  if (index !== undefined) {
+    (transaction.value[attr as keyof typeof transaction.value] as any[])[index] = file
+  }
 }
 
-const removeFile = function (attr: string, index: number) {
-  transaction.value[attr].splice(index, 1)
+const removeFile = function (attr: keyof typeof transaction.value, index: number) {
+  if (index !== undefined) {
+    (transaction.value[attr] as any[]).splice(index, 1)
+  }
 }
 
 const getAwardingCompanies = async function () {
@@ -151,7 +155,7 @@ const submitForm = async function (valid: boolean) {
     try {
       const response = await addNewTransaction(payload)
 
-      if (response.statusCode !== 200) {
+      if (response.statusCode === 400) {
         throw response
       }
 
@@ -165,7 +169,9 @@ const submitForm = async function (valid: boolean) {
       console.log(err)
       notify({
         title: 'An error occurred',
-        type: 'error'
+        type: 'error',
+        action: () => submitForm(true),
+        actionText: 'Retry'
       })
 
       return

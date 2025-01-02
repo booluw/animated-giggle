@@ -10,6 +10,6 @@ export interface Notification {
   title: string
   type: 'success' | 'error' | 'warning'
   message?: string
-  action?: unknown
+  action?: () => void
   actionText?: string
 }

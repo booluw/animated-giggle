@@ -187,7 +187,7 @@ onMounted(async () => {
             datasets: [
               {
                 backgroundColor: ['#CC5500', '#007ACC', '#4D3626'],
-                data: summary?.transaction_type_summary.map((soc) => Number(soc.count)),
+                data: summary?.transaction_type_summary.map((soc) => Number(soc.count)).filter((count) => count !== undefined)!,
               },
             ],
           }"

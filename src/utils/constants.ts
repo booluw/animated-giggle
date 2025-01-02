@@ -106,7 +106,7 @@ export const INCOTERMS = [
   }
 ]
 
-export const BASIS_OF_SELECTION = ["Contractor's Choice", "Awarding Company's Choice"]
+export const BASIS_OF_SELECTION = ["Contractor’s Choice", "Awarding Company’s Choice"]
 
 export const COUNTRIES = [
     {

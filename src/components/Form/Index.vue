@@ -42,7 +42,7 @@ const validation = computed(() => {
 })
 
 const showErrors = function () {
-  const errorInputs = Array.from(form.value.querySelectorAll('[data-prop]')).filter((el) =>
+  const errorInputs = Array.from(form.value.querySelectorAll('[data-prop]')).filter((el: any) =>
     validation.value.includes(el.dataset.prop),
   )
 
