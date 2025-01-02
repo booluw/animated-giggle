@@ -151,7 +151,10 @@ const submitForm = async function (valid: boolean) {
     try {
       const response = await addNewTransaction(payload)
 
-      console.log(response)
+      if (response.statusCode !== 200) {
+        throw response
+      }
+
       notify({
         title: 'New transaction added',
         type: 'success'
@@ -162,12 +165,11 @@ const submitForm = async function (valid: boolean) {
       console.log(err)
       notify({
         title: 'An error occurred',
-        type: 'error',
-        action: submitForm(true),
-        actionText: 'Retry'
+        type: 'error'
       })
-    }
 
+      return
+    }
     return
   }
 
