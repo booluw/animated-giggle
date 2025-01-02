@@ -24,10 +24,12 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 const store = useAppStore()
 const loading = ref(false)
 const transactionModal = ref(false)
+const error = ref(false)
 
 const summary = computed(() => store._summary)
 
 const getSummary = async function () {
+  error.value = false
   if (store._summary === undefined) loading.value = true
 
   try {
@@ -35,6 +37,7 @@ const getSummary = async function () {
     loading.value = false
   } catch (err: unknown) {
     console.log(err)
+    error.value = true
     notify({
       title: 'An Error occurred',
       message:
@@ -55,7 +58,10 @@ onMounted(async () => {
   <div v-if="loading" class="h-screen flex items-center justify-center">
     <div class="flex gap-3 flex-col items-center justify-center">
       <Loader />
-      <p class="opacity-75 animate-pulse">Loading dashboard, please wait...</p>
+      <div v-if="error" class="">
+        An Error occurred, please refresh
+      </div>
+      <p v-else class="opacity-75 animate-pulse">Loading dashboard, please wait...</p>
     </div>
   </div>
   <main v-else class="w-full flex flex-col gap-[20px]">
