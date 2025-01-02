@@ -20,7 +20,7 @@ const callAction = function () {
 }
 
 onMounted(() => {
-  timeout = setTimeout(close, action ? 10000 : 3000)
+  timeout = setTimeout(close, 10000)
 })
 </script>
 <template>
